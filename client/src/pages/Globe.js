@@ -1,8 +1,14 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import ReactGlobe from 'react-globe';
 import './globe.css'
+
+import API from "../utils/API"
  
-function SimpleGlobe() {
+function Globe() {
+
+  
+
+  
 
  
   // simple and extensive options to configure globe
@@ -17,13 +23,21 @@ function SimpleGlobe() {
     markerTooltipRenderer: marker => `${marker.city} (${marker.value})`,
   };
  
-  const [globe, setGlobe] = useState(null);
+  const [globe, setGlobe] = useState({});
+  const [markers, setMarkers] = useState([])
+
+  useEffect(() => {
+
+
+  })
+
   console.log(globe); // captured globe instance with API methods
 
   return (
+    
     <div className ="globe">
      <ReactGlobe 
-      // markers={markers}
+      markers= {markers}
       options={options}
       width="100%"
       onClickMarker={(marker, markerObject, event) => console.log(marker, markerObject, event)}
@@ -35,5 +49,5 @@ function SimpleGlobe() {
   )
 }
 
-export default SimpleGlobe
+export default Globe
 
