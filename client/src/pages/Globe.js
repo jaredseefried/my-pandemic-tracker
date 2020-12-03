@@ -24,7 +24,7 @@ function Globe() {
   };
  
   const [globe, setGlobe] = useState({});
-  const [markers, setMarkers] = useState([])
+  const [markers, setMarkers] = useState()
 
   useEffect(() => {
 
