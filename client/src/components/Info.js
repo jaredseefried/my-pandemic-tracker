@@ -3,7 +3,7 @@ import axios from 'axios'
 import './info.css'
 // import API from "../utils/covidAPI"
 
-function Info() {
+function Info(props) {
 
   const [data, setData] = useState()
 
@@ -27,13 +27,12 @@ function Info() {
   return (
     <div className="info-container">
       <h1 className="info-title">Covid-19 Information</h1>
-      <h3 className="info">Country:</h3>
-      <h3 className="info">Infected:</h3>
-      <h3 className="info">Deaths:</h3>
-      <h3 className="info">Recoveries:</h3>
+      <h3 className="info">Country: {props.country}</h3>
+      <h3 className="info">Infected: {props.totalCases}</h3>
+      <h3 className="info">Deaths: {props.totalDeaths}</h3>
+      <h3 className="info">Recoveries: {props.totalRecovered}</h3>
     </div>
   )
-
 }
 
 export default Info
