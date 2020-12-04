@@ -1,14 +1,24 @@
 import React, {useState, useEffect} from 'react'
 import ReactGlobe from 'react-globe';
+import axios from 'axios';
 import './globe.css'
 
 import "tippy.js/dist/tippy.css";
 import "tippy.js/animations/scale.css";
 
-import defaultMarkers from "./markers.js";
+// import defaultMarkers from "./markers.js"; // COMMENTED defaultMarkers - ANDY
+import covidCountries from "./covidMarkers.json";
+
+// FORMATTING COVID LIST TO MATCH GLOBE REACT PARAMETERS - ANDY ADD
+for(var i=0; i<covidCountries.length; i++){
+  covidCountries[i].value = (i+1)
+  covidCountries[i].id = (i+1)
+  covidCountries[i].color = '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6)
+}
+////////////////////////////////////////////////////////
 
 function markerTooltipRenderer(marker) {
-  return `CITY: ${marker.city} (Value: ${marker.value})`;
+  return `COUNTRY: ${marker.country} (Value: ${marker.value})`;
 }
 
 const options = {
@@ -18,14 +28,50 @@ const options = {
 };
 
 function Globe() {
-  const randomMarkers = defaultMarkers.map((marker) => ({
+  const randomMarkers = covidCountries.map((marker) => ({
     ...marker,
     value: Math.floor(Math.random() * 100)
   }));
   const [markers, setMarkers] = useState([]);
   const [event, setEvent] = useState(null);
   const [details, setDetails] = useState(null);
-  
+
+  ///////////////////////////////////////
+  // COVID API CALL - ANDY ADDED
+  useEffect(() => {
+    var options = {
+      method: 'GET',
+      url: 'https://covid-19-tracking.p.rapidapi.com/v1',
+      headers: {
+        'x-rapidapi-key': 'aa4bbfbbc6msh943bc8aba837399p1827ebjsnde6bed3202fa',
+        'x-rapidapi-host': 'covid-19-tracking.p.rapidapi.com'
+      }
+    };
+    
+    axios.request(options).then(function (response) {
+      
+      // CORRELATE COUNTRY TO COVID INDEX HERE
+      var covidData = response.data
+      console.log(covidData);
+
+      for(var i=0;i<covidData.length; i++){
+        if(randomMarkers.country === covidData[i].Country_text){
+          // WHEN A COUNTRY IN THE JSON FILE MATCHES A COUNTRY IN COVID DATA...
+          // WRITE CODE THAT ADDS COVID DATA TO THE 'randomMarker' COUNTRY OBJECT
+          // SO THAT WHEN A USER CLICKS A DOT...
+          // WE CAN PASS THE COVID DATA THROUGH PROPS INTO THE INFO.JS
+          // AND POPULATE A CARD WITH ALL THE COVID STATS FOR THAT DOT
+        }
+      }
+
+    }).catch(function (error) {
+      console.error(error);
+    });
+  })
+  // ANDY ADD ENDS
+  ////////////////////////////////////////
+
+
   function onClickMarker(marker, markerObject, event) {
     setEvent({
       type: "CLICK",
