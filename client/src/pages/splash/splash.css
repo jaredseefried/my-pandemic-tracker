@@ -1,0 +1,54 @@
+.white {
+  color: white;
+  font-family: ocr-a-std, monospace;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 40px;
+}
+
+.p-white {
+  color:#FF1400;
+  font-family: ocr-a-std, monospace;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 20px;
+  margin-top: 100px;
+}
+
+.text {
+  font-family: ocr-a-std, monospace;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.move {
+  margin-top: 100px;
+}
+
+.trans {
+  opacity: 0.4;
+}
+.changeColor {
+  color: white;
+}
+
+.img {
+  width: auto;
+  text-align: center;
+  padding: 20px;
+  height: 300px
+}
+
+
+.left.w3-animate-left {
+    animation: 2s ease 0s normal none 1 running animateleft;
+  }
+  .right.w3-animate-right {
+    animation: 1.2s ease 0s normal none 1 running animateright;
+  }
+  .top.w3-animate-top {
+    animation: .8s ease 0s normal none 1 running animatetop;
+  }
+  .bottom.w3-animate-bottom {
+    animation: 1.9s ease 0s normal none 1 running animatebottom;
+  }
