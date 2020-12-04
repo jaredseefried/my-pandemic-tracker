@@ -26,7 +26,11 @@ function Info() {
 
   return (
     <div className="info-container">
-      <h1> Hello! </h1>
+      <h1 className="info-title">Covid-19 Information</h1>
+      <h3 className="info">Country:</h3>
+      <h3 className="info">Infected:</h3>
+      <h3 className="info">Deaths:</h3>
+      <h3 className="info">Recoveries:</h3>
     </div>
   )
 
