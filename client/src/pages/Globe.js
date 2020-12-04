@@ -25,6 +25,7 @@ function Globe() {
   const [markers, setMarkers] = useState([]);
   const [event, setEvent] = useState(null);
   const [details, setDetails] = useState(null);
+  
   function onClickMarker(marker, markerObject, event) {
     setEvent({
       type: "CLICK",
@@ -58,7 +59,7 @@ function Globe() {
           <p>{details}</p>
           <p>
             EVENT: type={event.type}, position=
-            {JSON.stringify(event.pointerEventPosition)})
+            {JSON.stringify(event.pointerEventPosition)}
           </p>
         </div>
       )}
