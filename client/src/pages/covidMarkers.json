@@ -130,28 +130,6 @@
     }, 
     {
         "timezones": [
-            "Antarctica/McMurdo", 
-            "Antarctica/Casey", 
-            "Antarctica/Davis", 
-            "Antarctica/DumontDUrville", 
-            "Antarctica/Mawson", 
-            "Antarctica/Palmer", 
-            "Antarctica/Rothera", 
-            "Antarctica/Syowa", 
-            "Antarctica/Troll", 
-            "Antarctica/Vostok"
-        ], 
-        "coordinates": [
-            -90, 
-            0
-        ], 
-        "country": "Antarctica", 
-        "country_code": "AQ", 
-        "capital": null,
-        "covidIndex": 9999
-    }, 
-    {
-        "timezones": [
             "America/Antigua"
         ], 
         "coordinates": [

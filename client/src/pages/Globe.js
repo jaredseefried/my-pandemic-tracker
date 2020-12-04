@@ -37,7 +37,8 @@ function Globe() {
   const [details, setDetails] = useState(null);
 
   ///////////////////////////////////////
-  // COVID API CALL - ANDY ADDED
+  // THIS FUNCTION MAKES API CALL TO COVID DATA
+  // AND THEN ADDS THE DATA TO THE COUNTRY OBJECT
   useEffect(() => {
     var options = {
       method: 'GET',
@@ -50,19 +51,22 @@ function Globe() {
     
     axios.request(options).then(function (response) {
       
-      // CORRELATE COUNTRY TO COVID INDEX HERE
       var covidData = response.data
-      console.log(covidData);
+      console.log(covidData[0][`Active Cases_text`]);
 
-      for(var i=0;i<covidData.length; i++){
-        if(randomMarkers.country === covidData[i].Country_text){
-          // WHEN A COUNTRY IN THE JSON FILE MATCHES A COUNTRY IN COVID DATA...
-          // WRITE CODE THAT ADDS COVID DATA TO THE 'randomMarker' COUNTRY OBJECT
-          // SO THAT WHEN A USER CLICKS A DOT...
-          // WE CAN PASS THE COVID DATA THROUGH PROPS INTO THE INFO.JS
-          // AND POPULATE A CARD WITH ALL THE COVID STATS FOR THAT DOT
-        }
+      // THIS LOOP ADDS THE COVID DATA TO THE CORRESPONDING COUNTRY OBJECT
+      for(var i=0;i<randomMarkers.length; i++){
+        
+          randomMarkers[i].activeCases = response.data[randomMarkers[i].covidIndex][`Active Cases_text`]
+          randomMarkers[i].newCases = response.data[randomMarkers[i].covidIndex][`New Cases_text`]
+          randomMarkers[i].newDeaths = response.data[randomMarkers[i].covidIndex][`New Deaths_text`]
+          randomMarkers[i].totalCases = response.data[randomMarkers[i].covidIndex][`Total Cases_text`]
+          randomMarkers[i].totalDeaths = response.data[randomMarkers[i].covidIndex][`Total Deaths_text`]
+          randomMarkers[i].totalRecovered = response.data[randomMarkers[i].covidIndex][`Total Recovered_text`]
+          
       }
+      // EVERYTHING CONSOLE LOGS OUT SO FAR...
+      console.log(randomMarkers);
 
     }).catch(function (error) {
       console.error(error);
