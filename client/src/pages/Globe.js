@@ -7,6 +7,11 @@ import "tippy.js/dist/tippy.css";
 import "tippy.js/animations/scale.css";
 import defaultMarkers from "./markers";
 
+for(var i=0; i<defaultMarkers.length; i++){
+  defaultMarkers[i].color = '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6)
+  defaultMarkers[i].value = 50
+}
+
 function markerTooltipRenderer(marker) {
   return `CITY: ${marker.city} (Value: ${marker.value})`;
 }
@@ -88,8 +93,6 @@ function Globe() {
         deaths={info.deaths}
         recoveries={info.recoveries}
       />
-      )
-
     </div>
   );
 }
