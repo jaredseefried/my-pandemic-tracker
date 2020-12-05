@@ -12,12 +12,7 @@ function markerTooltipRenderer(marker) {
 }
 
 function Globe() {
-  const randomMarkers = defaultMarkers.map((marker) => ({
-    ...marker,
-    value: Math.floor(Math.random() * 100)
-  }));
-
-  const [markers, setMarkers] = useState([]);
+  const [markers, setMarkers] = useState(defaultMarkers);
   const [globe, setGlobe] = useState(null);
   // const [markerClicked, setMarkerClicked] = useState({})
   const [info, setInfo] = useState({
@@ -84,7 +79,7 @@ function Globe() {
     <div className="globe">
       
       <ReactGlobe
-        markers={randomMarkers}
+        markers={markers}
         options={options}
       />
       <Info
