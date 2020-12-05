@@ -11,8 +11,8 @@ export default [
   {
     id: 2,
     country: "Afghanistan",
-    coordinates: [33, 
-        65]
+    coordinates: [33, 65],
+    
   },
   {
     id: 3,
@@ -995,7 +995,8 @@ export default [
   {
     id: 172,
     country: "Sint Maarten",
-    coordinates: []
+    coordinates: [18.033333, 
+      -63.05]
   },
   {
     id: 173,
@@ -1120,42 +1121,50 @@ export default [
   {
     id: 192,
     country: "Venezuela",
-    coordinates: []
+    coordinates: [8, 
+      -66]
   },
   {
     id: 193,
     country: "British Virgin Islands",
-    coordinates: []
+    coordinates: [18.431383, 
+      -64.62305]
   },
   {
     id: 194,
     country: "Vietnam",
-    coordinates: []
+    coordinates: [16.16666666, 
+      107.83333333]
   },
   {
     id: 195,
     country: "Vanuatu",
-    coordinates: []
+    coordinates: [-16, 
+      167]
   },
   {
     id: 196,
     country: "Wallis and Futuna",
-    coordinates: [],
+    coordinates: [-16, 
+      167],
   },
   {
     id: 197,
     country: "Samoa",
-    coordinates: []
+    coordinates: [-13.58333333, 
+      -172.33333333]
   },
   {
     id: 198,
     country: "Yemen",
-    coordinates: []
+    coordinates: [15, 
+      48]
   },
   {
     id: 199,
     country: "South Africa",
-    coordinates: []
+    coordinates: [-29, 
+      24]
   },
   {
     id: 200,
