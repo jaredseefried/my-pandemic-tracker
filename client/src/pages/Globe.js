@@ -5,41 +5,39 @@ import Info from '../components/Info.js'
 import './globe.css'
 import "tippy.js/dist/tippy.css";
 import "tippy.js/animations/scale.css";
-import covidCountries from "./covidMarkers.json";
-// FORMATTING COVID LIST TO MATCH GLOBE REACT PARAMETERS - ANDY ADD
-for (var i = 0; i < covidCountries.length; i++) {
-  covidCountries[i].value = (i + 1)
-  covidCountries[i].id = (i + 1)
-  covidCountries[i].color = '#' + (0x1000000 + (Math.random()) * 0xffffff).toString(16).substr(1, 6)
-}
+import defaultMarkers from "./markers";
+
 function markerTooltipRenderer(marker) {
-  return `COUNTRY: ${marker.country} (Value: ${marker.value})`;
+  return `CITY: ${marker.city} (Value: ${marker.value})`;
 }
-const options = {
-  markerTooltipRenderer,
-  ambientLightColor: 'red',
-  globeGlowColor: 'blue'
-};
+
 function Globe() {
-  // const randomMarkers = covidCountries.map((marker) => ({
-  //   ...marker,
-  //   value: Math.floor(Math.random() * 100)
-  // }));
-  const [markers, setMarkers] = useState(covidCountries);
-  const [markerClicked, setMarkerClicked] = useState({})
-  // const [covidData, setCovidData] = useState([]);
-  // const [details, setDetails] = useState(null);
-  ///////////////////////////////////////
-  // THIS FUNCTION MAKES API CALL TO COVID DATA
-  // AND THEN ADDS THE DATA TO THE COUNTRY OBJECT
+  const randomMarkers = defaultMarkers.map((marker) => ({
+    ...marker,
+    value: Math.floor(Math.random() * 100)
+  }));
+
+  const [markers, setMarkers] = useState([]);
+  const [globe, setGlobe] = useState(null);
+  // const [markerClicked, setMarkerClicked] = useState({})
+  const [info, setInfo] = useState({
+    country: "",
+    infected: 0,
+    deaths: 0,
+    recoveries: 0
+  })
+
   useEffect(() => {
     loadData()
-    // response.data[0][`Active Cases_text`]
+    // setMarkers(randomMarkers)
   }, [])
+
   function handleMarkerClick(markerObj, threeJS, pointer) {
     // console.log(markerObj)
-    setMarkerClicked(markerObj)
+    // setMarkerClicked(markerObj)
   }
+
+
   function loadData() {
     var options = {
       method: 'GET',
@@ -49,39 +47,54 @@ function Globe() {
         'x-rapidapi-host': 'covid-19-tracking.p.rapidapi.com'
       }
     };
+
     axios.request(options).then(function (response) {
-      var covidData = response.data
-      const markersCopy = markers.slice(0)
-      // console.log(covidData[0][`Active Cases_text`]);
-      // THIS LOOP ADDS THE COVID DATA TO THE CORRESPONDING COUNTRY OBJECT
-      // Loop through results, get country name of each one, find the same country in markers, add all
-      // data from the response to the covidData object for each country
-      // iterate over an object
-      //Object.keys(markers).forEach(key, value)
-      for (var i = 0; i < response.data.length; i++) {
-        // console.log(response.data[i]) //! Get All Data
-        // covidData[i].activeCases = response.data[covidData[i].covidIndex][`Active Cases_text`]
+      const covidData = response.data
+      for (var i = 0; i < covidData.length; i++) {
+        console.log(covidData[i])
       }
-      console.log(response.data[0][`Country_text`]);
+      // setMarkers(covidData)
+      setInfo({
+        country: (covidData[0].Country_text),
+        infected: (covidData[0]["Active Cases_text"])
+        ,
+        deaths: (covidData[0]["Total Deaths_text"]),
+        recoveries: (covidData[0]["Total Recovered_text"])
+      })
     }).catch(function (error) {
       console.error(error);
     });
+
   }
+
+  function handleInputChange(e) {
+    const { name, value } = e.target;
+    setInfo({ ...info, [name]: value })
+  }
+
+  const options = {
+    markerTooltipRenderer,
+    ambientLightColor: 'red',
+    globeGlowColor: 'blue'
+  };
+
+  
+
   return (
     <div className="globe">
+      
       <ReactGlobe
-        markers={markers}
+        markers={randomMarkers}
         options={options}
-        onClickMarker={handleMarkerClick}
       />
-      { markerClicked.id !== undefined && markerClicked.id.length > 0 && (
-        <Info marker={markerClicked}
-        //  country = {markers[0].country}
-        //  infected = {markers[0].totalCases}
-        // deaths = {markers.totalDeaths}
-        // recoveries = {markers.totalRecovered}
-        />
-      )}
+      <Info
+        country={info.country}
+        infected={info.infected}
+        deaths={info.deaths}
+        recoveries={info.recoveries}
+      />
+      )
+
     </div>
   );
 }

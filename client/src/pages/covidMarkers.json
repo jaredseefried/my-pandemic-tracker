@@ -10,7 +10,8 @@
         "country": "Aruba", 
         "country_code": "AW", 
         "capital": "Oranjestad",
-        "covidIndex": 147
+        "covidIndex": 147,
+        "covidData": {}
     }, 
     {
         "timezones": [
