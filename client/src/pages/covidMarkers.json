@@ -73,7 +73,7 @@
             24, 
             54
         ], 
-        "country": "United Arab Emirates", 
+        "country": "UAE", 
         "country_code": "AE", 
         "capital": "Abu Dhabi",
         "covidIndex": 42
@@ -114,20 +114,6 @@
         "country_code": "AM", 
         "capital": "Yerevan",
         "covidIndex": 54
-    }, 
-    {
-        "timezones": [
-            "Pacific/Pago_Pago"
-        ], 
-        "coordinates": [
-            -14.33333333, 
-            -170
-        ], 
-        "country": "American Samoa", 
-        "country_code": "AS", 
-        "capital": "Pago Pago",
-        "covidIndex": 219
-
     }, 
     {
         "timezones": [
@@ -551,27 +537,13 @@
     }, 
     {
         "timezones": [
-            "Africa/Kinshasa", 
-            "Africa/Lubumbashi"
-        ], 
-        "coordinates": [
-            0, 
-            25
-        ], 
-        "country": "DR Congo", 
-        "country_code": "CD", 
-        "capital": "Kinshasa",
-        "covidIndex": 112
-    }, 
-    {
-        "timezones": [
             "Africa/Brazzaville"
         ], 
         "coordinates": [
             -1, 
             15
         ], 
-        "country": "Republic of the Congo", 
+        "country": "Congo", 
         "country_code": "CG", 
         "capital": "Brazzaville",
         "covidIndex": 139
@@ -627,21 +599,7 @@
         "country_code": "CU", 
         "capital": "Havana",
         "covidIndex": 125
-    }, 
-    {
-        "timezones": [
-            "America/Curacao"
-        ], 
-        "coordinates": [
-            12.116667, 
-            -68.933333
-        ], 
-        "country": "Curacao", 
-        "country_code": "CW", 
-        "capital": "Willemstad",
-        "covidIndex": 157
-
-    }, 
+    },  
     {
         "timezones": [
             "America/Cayman"
@@ -927,7 +885,7 @@
             54, 
             -2
         ], 
-        "country": "United Kingdom", 
+        "country": "UK", 
         "country_code": "GB", 
         "capital": "London",
         "covidIndex": 7
@@ -973,19 +931,6 @@
     }, 
     {
         "timezones": [
-            "Africa/Conakry"
-        ], 
-        "coordinates": [
-            11, 
-            -10
-        ], 
-        "country": "Guinea", 
-        "country_code": "GN", 
-        "capital": "Conakry",
-        "covidIndex": 111
-    }, 
-    {
-        "timezones": [
             "America/Guadeloupe"
         ], 
         "coordinates": [
@@ -1009,19 +954,6 @@
         "country_code": "GM", 
         "capital": "Banjul",
         "covidIndex": 152
-    }, 
-    {
-        "timezones": [
-            "Africa/Bissau"
-        ], 
-        "coordinates": [
-            12, 
-            -15
-        ], 
-        "country": "Guinea-Bissau", 
-        "country_code": "GW", 
-        "capital": "Bissau",
-        "covidIndex": 158
     }, 
     {
         "timezones": [
@@ -1090,19 +1022,6 @@
         "country_code": "GT", 
         "capital": "Guatemala City",
         "covidIndex": 59
-    }, 
-    {
-        "timezones": [
-            "America/Cayenne"
-        ], 
-        "coordinates": [
-            4, 
-            -53
-        ], 
-        "country": "French Guiana", 
-        "country_code": "GF", 
-        "capital": "Cayenne",
-        "covidIndex": 117
     }, 
     {
         "timezones": [
@@ -1396,20 +1315,7 @@
         "country_code": "KH", 
         "capital": "Phnom Penh",
         "covidIndex": 188
-    }, 
-    {
-        "timezones": [
-            "America/St_Kitts"
-        ], 
-        "coordinates": [
-            17.33333333, 
-            -62.75
-        ], 
-        "country": "Saint Kitts and Nevis", 
-        "country_code": "KN", 
-        "capital": "Basseterre",
-        "covidIndex": 208
-    }, 
+    },  
     {
         "timezones": [
             "Asia/Seoul"
@@ -1418,7 +1324,7 @@
             37, 
             127.5
         ], 
-        "country": "South Korea", 
+        "country": "S. Korea", 
         "country_code": "KR", 
         "capital": "Seoul",
         "covidIndex": 94
@@ -1435,19 +1341,6 @@
         "country_code": "KW", 
         "capital": "Kuwait City",
         "covidIndex": 49
-    }, 
-    {
-        "timezones": [
-            "Asia/Vientiane"
-        ], 
-        "coordinates": [
-            18, 
-            105
-        ], 
-        "country": "Laos", 
-        "country_code": "LA", 
-        "capital": "Vientiane",
-        "covidIndex": 204
     }, 
     {
         "timezones": [
@@ -1487,19 +1380,6 @@
         "country_code": "LY", 
         "capital": "Tripoli",
         "covidIndex": 77
-    }, 
-    {
-        "timezones": [
-            "America/St_Lucia"
-        ], 
-        "coordinates": [
-            13.88333333, 
-            -60.96666666
-        ], 
-        "country": "Saint Lucia", 
-        "country_code": "LC", 
-        "capital": "Castries",
-        "covidIndex": 192
     }, 
     {
         "timezones": [
@@ -1578,19 +1458,6 @@
         "country_code": "LV", 
         "capital": "Riga",
         "covidIndex": 101
-    }, 
-    {
-        "timezones": [
-            "America/Marigot"
-        ], 
-        "coordinates": [
-            18.08333333, 
-            -63.95
-        ], 
-        "country": "Saint Martin", 
-        "country_code": "MF", 
-        "capital": "Marigot",
-        "covidIndex": 175
     }, 
     {
         "timezones": [
@@ -2690,7 +2557,7 @@
             38, 
             -97
         ], 
-        "country": "United States", 
+        "country": "USA", 
         "country_code": "US", 
         "capital": "Washington D.C.",
         "covidIndex": 1
@@ -2721,19 +2588,6 @@
         "country_code": "VA", 
         "capital": "Vatican City",
         "covidIndex": 207
-    }, 
-    {
-        "timezones": [
-            "America/St_Vincent"
-        ], 
-        "coordinates": [
-            13.25, 
-            -61.2
-        ], 
-        "country": "Saint Vincent and the Grenadines", 
-        "country_code": "VC", 
-        "capital": "Kingstown",
-        "covidIndex": 198
     }, 
     {
         "timezones": [

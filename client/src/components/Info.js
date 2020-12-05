@@ -5,10 +5,31 @@ import './info.css'
 
 
 function Info(props) {
+
+  const [data, setData] = useState()
+
+  useEffect(() => {
+    var options = {
+      method: 'GET',
+      url: 'https://covid-19-tracking.p.rapidapi.com/v1',
+      headers: {
+        'x-rapidapi-key': 'aa4bbfbbc6msh943bc8aba837399p1827ebjsnde6bed3202fa',
+        'x-rapidapi-host': 'covid-19-tracking.p.rapidapi.com'
+      }
+    };
+    
+    axios.request(options).then(function (response) {
+      console.log(response.data);
+    }).catch(function (error) {
+      console.error(error);
+    });
+  })
+
+function Info(props) {
   return (
     <div className="info-container">
-      <h1 className="info-title">Location: {props.country}</h1>
 
+      <h1 className="info-title">Location: {props.country}</h1>
       <h3 className="info">Infected: {props.infected}</h3>
       <h3 className="info">Deaths: {props.deaths}</h3>
       <h3 className="info">Recoveries: {props.recoveries}</h3>
