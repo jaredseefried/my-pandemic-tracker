@@ -13,7 +13,7 @@ for(var i=0; i<defaultMarkers.length; i++){
 }
 
 function markerTooltipRenderer(marker) {
-  return `CITY: ${marker.city} (Value: ${marker.value})`;
+  return `CITY: ${marker.country} (Value: ${marker.value})`;
 }
 
 function Globe() {
@@ -56,7 +56,7 @@ function Globe() {
       // setMarkers(covidData)
       setInfo({
         country: (covidData[0].Country_text),
-        infected: (covidData[0]["Active Cases_text"])
+        infected: (covidData[0]["Total Cases_text"])
         ,
         deaths: (covidData[0]["Total Deaths_text"]),
         recoveries: (covidData[0]["Total Recovered_text"])
@@ -78,6 +78,36 @@ function Globe() {
     globeGlowColor: 'blue'
   };
 
+  function onClickMarker(markerObj, threeJS, pointer) {
+    var options = {
+      method: 'GET',
+      url: 'https://covid-19-tracking.p.rapidapi.com/v1',
+      headers: {
+        'x-rapidapi-key': 'aa4bbfbbc6msh943bc8aba837399p1827ebjsnde6bed3202fa',
+        'x-rapidapi-host': 'covid-19-tracking.p.rapidapi.com'
+      }
+    };
+
+    axios.request(options).then(function (response) {
+      const covidData = response.data
+      for (var i = 0; i < covidData.length; i++) {
+        console.log(covidData[i])
+        if (covidData[i].Country_text === markerObj.country){
+          setInfo({
+            country: (covidData[i].Country_text),
+            infected: (covidData[i]["Total Cases_text"])
+            ,
+            deaths: (covidData[i]["Total Deaths_text"]),
+            recoveries: (covidData[i]["Total Recovered_text"])
+          })
+        }
+      }
+      // setMarkers(covidData)
+      
+    }).catch(function (error) {
+      console.error(error);
+    });
+  }
   
 
   return (
@@ -86,6 +116,7 @@ function Globe() {
       <ReactGlobe
         markers={markers}
         options={options}
+        onClickMarker={onClickMarker}
       />
       <Info
         country={info.country}
