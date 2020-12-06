@@ -6,20 +6,20 @@ import './globe.css'
 import "tippy.js/dist/tippy.css";
 import "tippy.js/animations/scale.css";
 import defaultMarkers from "./markers";
+import Continents from '../components/Continents'
 
-for(var i=0; i<defaultMarkers.length; i++){
-  defaultMarkers[i].color = '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6)
+for (var i = 0; i < defaultMarkers.length; i++) {
+  defaultMarkers[i].color = '#' + (0x1000000 + (Math.random()) * 0xffffff).toString(16).substr(1, 6)
   defaultMarkers[i].value = 50
 }
 
 function markerTooltipRenderer(marker) {
-  return `CITY: ${marker.country} (Value: ${marker.value})`;
+  return `CITY: ${marker.country}`;
 }
 
 function Globe() {
   const [markers, setMarkers] = useState(defaultMarkers);
-  const [globe, setGlobe] = useState(null);
-  // const [markerClicked, setMarkerClicked] = useState({})
+
   const [info, setInfo] = useState({
     country: "",
     infected: 0,
@@ -29,13 +29,8 @@ function Globe() {
 
   useEffect(() => {
     loadData()
-    // setMarkers(randomMarkers)
-  }, [])
 
-  function handleMarkerClick(markerObj, threeJS, pointer) {
-    // console.log(markerObj)
-    // setMarkerClicked(markerObj)
-  }
+  }, [])
 
 
   function loadData() {
@@ -53,11 +48,9 @@ function Globe() {
       for (var i = 0; i < covidData.length; i++) {
         console.log(covidData[i])
       }
-      // setMarkers(covidData)
       setInfo({
         country: (covidData[0].Country_text),
-        infected: (covidData[0]["Total Cases_text"])
-        ,
+        infected: (covidData[0]["Total Cases_text"]),
         deaths: (covidData[0]["Total Deaths_text"]),
         recoveries: (covidData[0]["Total Recovered_text"])
       })
@@ -67,18 +60,14 @@ function Globe() {
 
   }
 
-  function handleInputChange(e) {
-    const { name, value } = e.target;
-    setInfo({ ...info, [name]: value })
-  }
-
   const options = {
     markerTooltipRenderer,
     ambientLightColor: 'red',
-    globeGlowColor: 'blue'
+    globeGlowColor: 'blue',
+
   };
 
-  function onClickMarker(markerObj, threeJS, pointer) {
+  function onClickMarker(markerObj) {
     var options = {
       method: 'GET',
       url: 'https://covid-19-tracking.p.rapidapi.com/v1',
@@ -92,27 +81,26 @@ function Globe() {
       const covidData = response.data
       for (var i = 0; i < covidData.length; i++) {
         console.log(covidData[i])
-        if (covidData[i].Country_text === markerObj.country){
+        if (covidData[i].Country_text === markerObj.country) {
           setInfo({
             country: (covidData[i].Country_text),
-            infected: (covidData[i]["Total Cases_text"])
-            ,
+            infected: (covidData[i]["Total Cases_text"]),
             deaths: (covidData[i]["Total Deaths_text"]),
             recoveries: (covidData[i]["Total Recovered_text"])
           })
         }
       }
-      // setMarkers(covidData)
-      
+
     }).catch(function (error) {
       console.error(error);
     });
   }
-  
+
 
   return (
     <div className="globe">
-      
+      <Continents />
+
       <ReactGlobe
         markers={markers}
         options={options}
