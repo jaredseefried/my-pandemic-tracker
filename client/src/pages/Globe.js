@@ -8,6 +8,7 @@ import defaultMarkers from "./markers";
 import API from '../utils/API'
 import News from '../components/News'
 import "./continents.css"
+import {Button} from "react-bootstrap"
 
 for (var i = 0; i < defaultMarkers.length; i++) {
   defaultMarkers[i].color = '#' + (0x1000000 + (Math.random()) * 0xffffff).toString(16).substr(1, 6)
@@ -178,10 +179,14 @@ function Globe() {
            ]
            break;
 
-           default:
-             console.log('hello');
-         
+           case 'explore': 
+             animations = []
            
+          break;
+
+          default:
+            console.log("hello")
+
         }
 
 
@@ -197,6 +202,8 @@ function Globe() {
         <h2 className="continent" onClick={() => setAnimationSequence('asia')}>Asia</h2>
         <h2 className="continent" onClick={() => setAnimationSequence('australia')}>Australia</h2>
         <h2 className="continent" onClick={() => setAnimationSequence('antartica')}>Antarctica</h2>
+        <Button className="continent" onClick={() => setAnimationSequence('explore')}>Explore!</Button>
+        
        
       </div>
       <div className="globe">
