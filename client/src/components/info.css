@@ -1,19 +1,24 @@
 .info-container {
   position: absolute;
-  top: 204px;
+  top: 100px;
   left: 20px;
   color: black;
   background: #ffffff99;
   height: 219px;
   width: 326px;
   font-size: 14px;
+  border-radius: 5px;
 }
 
 .info-title {
   width: auto;
+  margin: 15px 0px;
+  font-weight: bold;
 }
 
 .info {
+  margin-top: 4%;;
   text-align: left;
   padding-left: 14px;
+  font-size:24px;
 }
