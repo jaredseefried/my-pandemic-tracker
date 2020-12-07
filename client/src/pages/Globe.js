@@ -101,33 +101,90 @@ function Globe() {
       })
   }
 
+  function continentClick(continent){
+    switch(continent){
+      case northAmerica:
+        setMarkers(() => 
+          {country: "USA"},
+          {coordinates: [38, -97]}
+        )
+        break;
+      case southAmerica:
+        setMarkers(() => 
+          {country: "Brazil"},
+          {coordinates: [-24, -47]}
+        )
+        break;
+      case europe:
+        setMarkers(() => 
+          {country: "UK"},
+          {coordinates: [54, -2]}
+        )
+        break;
+      case africa:
+        setMarkers(() => 
+          {country: "Congo"},
+          {coordinates: [-1, 15]}
+        )
+        break;
+      case asia:
+        setMarkers(() => 
+          {country: "China"},
+          {coordinates: [35, 105]}
+        )
+        break;
+      case australia:
+        setMarkers(() => 
+          {country: "Australia"},
+          {coordinates: [47, 14]}
+        )
+        break;
+      case antartica:
+        setMarkers(() => 
+          {country: "Antarctica"},
+          {coordinates: [-70, 0]}
+        )
+        break;
+    }
+ }
 
   return (
-    <div className="globe">
-      <Continents
-        coordinates={coordinates}
-      />
-      <div className="news-container">
-        {getCovidNews.map(article => (
-          <News
-            {...article}
-            key={article.title} />
-        ))}
-
+    <div>
+      <div className="continents-container">
+        <h2 className="continent">North America</h2>
+        <h2 className="continent">South America</h2>
+        <h2 className="continent">Europe</h2>
+        <h2 className="continent">Africa</h2>
+        <h2 className="continent">Asia</h2>
+        <h2 className="continent">Australia</h2>
+        <h2 className="continent">Antarctica</h2>
       </div>
+      <div className="globe">
+        <Continents
+          coordinates={coordinates}
+        />
+        <div className="news-container">
+          {getCovidNews.map(article => (
+            <News
+              {...article}
+              key={article.title} />
+          ))}
+
+        </div>
 
 
-      <ReactGlobe
-        markers={markers}
-        options={options}
-        onClickMarker={onClickMarker}
-      />
-      <Info
-        country={info.country}
-        infected={info.infected}
-        deaths={info.deaths}
-        recoveries={info.recoveries}
-      />
+        <ReactGlobe
+          markers={markers}
+          options={options}
+          onClickMarker={onClickMarker}
+        />
+        <Info
+          country={info.country}
+          infected={info.infected}
+          deaths={info.deaths}
+          recoveries={info.recoveries}
+        />
+      </div>
     </div>
   );
 }
