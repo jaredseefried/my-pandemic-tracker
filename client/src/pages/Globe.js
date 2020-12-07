@@ -61,7 +61,7 @@ function Globe() {
     markerTooltipRenderer,
     ambientLightColor: 'red',
     globeGlowColor: 'blue',
-    cameraDistanceRadiusScale: 4
+    cameraDistanceRadiusScale: 3
   };
 
   function onClickMarker(markerObj) {
@@ -85,28 +85,16 @@ function Globe() {
       });
   }
 
-  const [getCovidNews, setGetCovidNews] = useState({
-    image: "",
-    title: "",
-    description: "",
-    published: "",
-    url: ""
-  })
+  const [getCovidNews, setGetCovidNews] = useState([])
 
   function getNews() {
     API.getNews()
       .then(response => {
         const newsData = response.data
         console.log(newsData);
-        setGetCovidNews({
-          image: (newsData.articles[0].image),
-          title: (newsData.articles[0].title),
-          description: (newsData.articles[0].description),
-          published: (newsData.articles[0].publishedAt),
-          url: (newsData.articles[0].url),
-        })
-
-
+        // for (var i = 0; i < newsData.length; i++) {
+        // }
+        setGetCovidNews(newsData.articles)
       })
       .catch(error => {
         console.error(error);
@@ -119,14 +107,15 @@ function Globe() {
       <Continents
         coordinates={coordinates}
       />
+      <div className="news-container">
+        {getCovidNews.map(article => (
+          <News
+            {...article}
+            key={article.title} />
+        ))}
 
-      <News
-        image={getCovidNews.image}
-        title={getCovidNews.title}
-        description={getCovidNews.description}
-        published={getCovidNews.publishedAt}
-        url={getCovidNews.url}
-      />
+      </div>
+
 
       <ReactGlobe
         markers={markers}

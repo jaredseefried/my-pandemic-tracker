@@ -1,13 +1,18 @@
 .news-container {
   position: absolute;
-  top: 327px;
+  top: 336px;
   left: 20px;
+  width: 344px;
 }
 
 .card {
-  width: 9rem;
+  display: flex;
+  width: 10rem;
+  height: 216px;
   font-size: 14px;
   opacity: .7;
+  float: left;
+  margin-right: 11px;
 }
 
 .card-title {
