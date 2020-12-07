@@ -5,9 +5,9 @@ import './globe.css'
 import "tippy.js/dist/tippy.css";
 import "tippy.js/animations/scale.css";
 import defaultMarkers from "./markers";
-import Continents from '../components/Continents'
 import API from '../utils/API'
 import News from '../components/News'
+import "./continents.css"
 
 for (var i = 0; i < defaultMarkers.length; i++) {
   defaultMarkers[i].color = '#' + (0x1000000 + (Math.random()) * 0xffffff).toString(16).substr(1, 6)
@@ -32,9 +32,12 @@ function Globe() {
     recoveries: 0
   })
 
+  const [animationSequence, setAnimationSequence] = useState()
+  let animations = []
+
   useEffect(() => {
     loadData()
-    getNews()
+    // getNews()
   }, [])
 
 
@@ -101,68 +104,103 @@ function Globe() {
       })
   }
 
-  function continentClick(continent){
-    switch(continent){
-      case northAmerica:
-        setMarkers(() => 
-          {country: "USA"},
-          {coordinates: [38, -97]}
-        )
-        break;
-      case southAmerica:
-        setMarkers(() => 
-          {country: "Brazil"},
-          {coordinates: [-24, -47]}
-        )
-        break;
-      case europe:
-        setMarkers(() => 
-          {country: "UK"},
-          {coordinates: [54, -2]}
-        )
-        break;
-      case africa:
-        setMarkers(() => 
-          {country: "Congo"},
-          {coordinates: [-1, 15]}
-        )
-        break;
-      case asia:
-        setMarkers(() => 
-          {country: "China"},
-          {coordinates: [35, 105]}
-        )
-        break;
-      case australia:
-        setMarkers(() => 
-          {country: "Australia"},
-          {coordinates: [47, 14]}
-        )
-        break;
-      case antartica:
-        setMarkers(() => 
-          {country: "Antarctica"},
-          {coordinates: [-70, 0]}
-        )
-        break;
-    }
- }
+
+
+      switch (animationSequence) {
+         case 'northAmerica':
+           animations = [
+            {
+              coordinates: [38, -97],
+              focusAnimationDuration: 3000,
+              focusDistanceRadiusScale: 3,
+              focusEasingFunction: ['Linear', 'None'],
+            },
+          ]
+          break;
+          case 'southAmerica':
+            animations = [
+             {
+               coordinates: [-24, -47],
+               focusAnimationDuration: 3000,
+               focusDistanceRadiusScale: 3,
+               focusEasingFunction: ['Linear', 'None'],
+             },
+           ]
+           break;
+           case 'europe':
+            animations = [
+             {
+               coordinates: [54, -2],
+               focusAnimationDuration: 3000,
+               focusDistanceRadiusScale: 3,
+               focusEasingFunction: ['Linear', 'None'],
+             },
+           ]
+           break;
+           case 'africa':
+            animations = [
+             {
+               coordinates: [-1, 15],
+               focusAnimationDuration: 3000,
+               focusDistanceRadiusScale: 3,
+               focusEasingFunction: ['Linear', 'None'],
+             },
+           ]
+           break;
+           case 'asia':
+            animations = [
+             {
+               coordinates: [35, 105],
+               focusAnimationDuration: 3000,
+               focusDistanceRadiusScale: 3,
+               focusEasingFunction: ['Linear', 'None'],
+             },
+           ]
+           break;
+           case 'australia':
+            animations = [
+             {
+               coordinates: [-27, 133],
+               focusAnimationDuration: 3000,
+               focusDistanceRadiusScale: 3,
+               focusEasingFunction: ['Linear', 'None'],
+             },
+           ]
+           break;
+           case 'antartica':
+            animations = [
+             {
+               coordinates: [-70, 0],
+               focusAnimationDuration: 3000,
+               focusDistanceRadiusScale: 3,
+               focusEasingFunction: ['Linear', 'None'],
+             },
+           ]
+           break;
+
+           default:
+             console.log('hello');
+         
+           
+        }
+
+
+
 
   return (
     <div>
       <div className="continents-container">
-        <h2 className="continent" onClick={continentClick(northAmerica)}>North America</h2>
-        <h2 className="continent" onClick={continentClick(southAmerica)}>South America</h2>
-        <h2 className="continent" onClick={continentClick(europe)}>Europe</h2>
-        <h2 className="continent" onClick={continentClick(africa)}>Africa</h2>
-        <h2 className="continent" onClick={continentClick(asia)}>Asia</h2>
-        <h2 className="continent" onClick={continentClick(australia)}>Australia</h2>
-        <h2 className="continent" onClick={continentClick(antartica)}>Antarctica</h2>
+        <h2 className="continent" onClick={() => setAnimationSequence('northAmerica')}>North America</h2>
+        <h2 className="continent" onClick={() => setAnimationSequence('southAmerica')}>South America</h2>
+        <h2 className="continent" onClick={() => setAnimationSequence('europe')}>Europe</h2>
+        <h2 className="continent" onClick={() => setAnimationSequence('africa')}>Africa</h2>
+        <h2 className="continent" onClick={() => setAnimationSequence('asia')}>Asia</h2>
+        <h2 className="continent" onClick={() => setAnimationSequence('australia')}>Australia</h2>
+        <h2 className="continent" onClick={() => setAnimationSequence('antartica')}>Antarctica</h2>
+       
       </div>
       <div className="globe">
-        <Continents
-          coordinates={coordinates}
-        />
+        
         <div className="news-container">
           {getCovidNews.map(article => (
             <News
@@ -177,6 +215,7 @@ function Globe() {
           markers={markers}
           options={options}
           onClickMarker={onClickMarker}
+          animations={animations}
         />
         <Info
           country={info.country}
