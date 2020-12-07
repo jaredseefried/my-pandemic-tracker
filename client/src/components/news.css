@@ -1,0 +1,21 @@
+.news-container {
+  position: absolute;
+  top: 327px;
+  left: 20px;
+}
+
+.card {
+  width: 9rem;
+  font-size: 14px;
+  opacity: .7;
+}
+
+.card-title {
+  margin-bottom: .75rem;
+  font-size: 10px;
+}
+
+#news-link {
+  width: 88px;
+  font-size: 8px;
+}

@@ -7,6 +7,7 @@ import "tippy.js/animations/scale.css";
 import defaultMarkers from "./markers";
 import Continents from '../components/Continents'
 import API from '../utils/API'
+import News from '../components/News'
 
 for (var i = 0; i < defaultMarkers.length; i++) {
   defaultMarkers[i].color = '#' + (0x1000000 + (Math.random()) * 0xffffff).toString(16).substr(1, 6)
@@ -33,7 +34,7 @@ function Globe() {
 
   useEffect(() => {
     loadData()
-
+    getNews()
   }, [])
 
 
@@ -60,7 +61,7 @@ function Globe() {
     markerTooltipRenderer,
     ambientLightColor: 'red',
     globeGlowColor: 'blue',
-
+    cameraDistanceRadiusScale: 4
   };
 
   function onClickMarker(markerObj) {
@@ -84,11 +85,47 @@ function Globe() {
       });
   }
 
+  const [getCovidNews, setGetCovidNews] = useState({
+    image: "",
+    title: "",
+    description: "",
+    published: "",
+    url: ""
+  })
+
+  function getNews() {
+    API.getNews()
+      .then(response => {
+        const newsData = response.data
+        console.log(newsData);
+        setGetCovidNews({
+          image: (newsData.articles[0].image),
+          title: (newsData.articles[0].title),
+          description: (newsData.articles[0].description),
+          published: (newsData.articles[0].publishedAt),
+          url: (newsData.articles[0].url),
+        })
+
+
+      })
+      .catch(error => {
+        console.error(error);
+      })
+  }
+
 
   return (
     <div className="globe">
       <Continents
         coordinates={coordinates}
+      />
+
+      <News
+        image={getCovidNews.image}
+        title={getCovidNews.title}
+        description={getCovidNews.description}
+        published={getCovidNews.publishedAt}
+        url={getCovidNews.url}
       />
 
       <ReactGlobe
