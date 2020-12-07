@@ -1,15 +1,19 @@
 // import logo from './logo.svg';
-import React from 'react'
-import './App.css';
-import Globe from './pages/Globe'
+import React from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import "./App.css";
+import Globe from "./pages/Globe";
+import Splash from "./pages/splash"
 // import Info from './components/Info'
 
 function App() {
   return (
-    <div className="App">
-      <Globe />
-     
-    </div>
+    <Router>
+      <div className="App">
+        <Route exact path ="/" component={Splash}/>
+        <Route exact path ="/globe" component={Globe}/>
+      </div>
+    </Router>
   );
 }
 

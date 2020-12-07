@@ -1,0 +1,60 @@
+.textEdit {
+  color: #367fbf;
+  position: absolute;
+  margin-top: 300px;
+  z-index: 3;
+  font-family: usual, sans-serif;
+
+font-weight: 400;
+
+font-style: normal;
+}
+.textEdit1 {
+  color: #367fbf;
+  position: absolute;
+  margin-top: 400px;
+  z-index: 3;
+}
+.textEdit2 {
+  color: #80bdf2;
+  position: absolute;
+  margin-top: 470px;
+  right: 0;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  opacity: 0.4;
+  z-index: 2;
+}
+
+.textEdit3 {
+  color: #80bdf2;
+  position: absolute;
+  left: 0;
+  margin-top: 50px;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  opacity: 0.4;
+  z-index: 2;
+}
+
+.textEdit4{
+    position: absolute;
+    margin-top: 500px;
+    margin-left: 645px;
+    background-color:#F27052;
+}
+
+.fade-in {
+	animation: fadeIn 3s;
+  	opacity: .4;
+}
+
+@keyframes fadeIn {
+  from {
+  	opacity: 0;
+  }
+  to {
+ 	opacity: .4;
+  }
+}
+
