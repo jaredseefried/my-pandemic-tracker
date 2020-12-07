@@ -151,13 +151,13 @@ function Globe() {
   return (
     <div>
       <div className="continents-container">
-        <h2 className="continent">North America</h2>
-        <h2 className="continent">South America</h2>
-        <h2 className="continent">Europe</h2>
-        <h2 className="continent">Africa</h2>
-        <h2 className="continent">Asia</h2>
-        <h2 className="continent">Australia</h2>
-        <h2 className="continent">Antarctica</h2>
+        <h2 className="continent" onClick={continentClick(northAmerica)}>North America</h2>
+        <h2 className="continent" onClick={continentClick(southAmerica)}>South America</h2>
+        <h2 className="continent" onClick={continentClick(europe)}>Europe</h2>
+        <h2 className="continent" onClick={continentClick(africa)}>Africa</h2>
+        <h2 className="continent" onClick={continentClick(asia)}>Asia</h2>
+        <h2 className="continent" onClick={continentClick(australia)}>Australia</h2>
+        <h2 className="continent" onClick={continentClick(antartica)}>Antarctica</h2>
       </div>
       <div className="globe">
         <Continents
