@@ -1,31 +1,35 @@
-# My Developer Portfolio using MERN 
+# My Pandemic Tracker
+All of your COVID-19 data and news thrown into one place. 
+You can see the infection and death rates for many of the countries around the globe.
+You are also shown the most recent news regarding COVID-19.
 
-![Employee tracker with react](./client/public/images/readme-image.jpg)
+# Table of Contens
+1. [Motivation](#motivation)
+2. [Screenshot](#screenshot)
+3. [Technology Used](#technology-used)
+4. [Features](#features)
 
-## Table of Contents
+# Motivation
+With COVID-19 being something that is so prevelant now and it's clear that this won't be leaving anytime soon we wanted to make something that could keep people informed.
+This brought the idea of making My Pandemic Tracker. Using many technologies we made an app that updates real-time on the current infection rates along with the recent news on COVID-19.
 
-- **[Description](#Description)**
-- **[Installation Requirements](#Installation-Requirements)**
-- **[License](#License)**
-- **[Questions](#Questions)**
+# Screenshot
+![Image of the main page](https://tinyurl.com/y56ac2lx)
 
-# Description
+# Technology Used
+* COVID-19 API from [Rapidapi](https://rapidapi.com/collection/coronavirus-covid-19)
+* [GNews API](https://gnews.io/)
+* [MERN Stack](https://www.mongodb.com/mern-stack)
+   * [MongoDB](https://www.mongodb.com/)
+   * [Express.js](https://expressjs.com/)
+   * [React.js](https://reactjs.org/)
+   * [Node.js](https://nodejs.org/en/)
+* [React Globe](https://react-globe.netlify.app/)
+* [Axios](https://www.npmjs.com/package/axios)
+* [Bootstrap](https://getbootstrap.com/)
+* [Particles](https://vincentgarreau.com/particles.js/)
 
- ### https://developer-portfolio-with-react.herokuapp.com/
-
-# Installation Requirements
-
-React
-Bootstrap
-Express
-Mongo mongoose
-
-# License
-
-MIT
-
-# Have Questions?
-
-## [Github Profile: github.com/jaredseefried](https://github.com/jaredseefried "Title")
-
-Please email me at jared.seefried@yahoo.com if you have additional questions.
+# Features
+* Real-time updates on the infection rates of COVID-19
+* A globe the user can go around to select a specific country
+* Real-time news updates about COVID-19 from google
