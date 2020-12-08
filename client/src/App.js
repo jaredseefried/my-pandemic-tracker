@@ -1,10 +1,8 @@
-// import logo from './logo.svg';
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
 import Globe from "./pages/Globe";
 import Splash from "./pages/splash"
-// import Info from './components/Info'
 
 function App() {
   return (
