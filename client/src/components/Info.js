@@ -1,5 +1,4 @@
 import React from 'react'
-import '../pages/info.css'
 
 function Info(props) {
   return (

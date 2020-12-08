@@ -22,6 +22,6 @@ export default {
   },
 
   getMarker: function () {
-    return axios.get("/api/markers");
+    return axios.get("/api/marker");
   }
 }
