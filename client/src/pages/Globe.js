@@ -26,11 +26,11 @@ function Globe() {
 
   const [markers, setMarkers] = useState([])
 
-  //! const [dataFinished, setDataFinished] = useState(false)
+  // const [dataFinished, setDataFinished] = useState(false)
 
-  //! const [coordinates, setCoordinates] = useState({
-  //!   coordinates: []
-  //! })
+  // const [coordinates, setCoordinates] = useState({
+  //   coordinates: []
+  // })
 
   const [info, setInfo] = useState({
     country: "",
@@ -56,7 +56,7 @@ function Globe() {
             country: defaultMarkers[i].country,
             coordinates: defaultMarkers[i].coordinates,
             color: covidColor,
-            value: covidSize
+            value: covidCountryValue
           }
           markersData.push(updatedMarkerObj)
         }
@@ -75,31 +75,31 @@ function Globe() {
             if (covidSize > 0 && covidSize < 1000) {
               // console.log("Between 0 and 100")
               const covidCountryValue = 10
-              const covidColor = "#f2ba07"
+              const covidColor = "#ffffff"
               const countryName = covidData[i].Country_text
               formatCountryValues(covidCountryValue, countryName, covidColor)
             } else if (covidSize > 1000 && covidSize < 100000) {
               // console.log("Between 100 and 1,000")
               const covidCountryValue = 15
-              const covidColor = "#f5b203"
+              const covidColor = "#60bcc4"
               const countryName = covidData[i].Country_text
               formatCountryValues(covidCountryValue, countryName, covidColor)
             } else if (covidSize > 100000 && covidSize < 1000000) {
               // console.log("Between 1,000 and 10,000")
               const covidCountryValue = 20
-              const covidColor = "#f97e00"
+              const covidColor = "#005666"
               const countryName = covidData[i].Country_text
               formatCountryValues(covidCountryValue, countryName, covidColor)
             } else if (covidSize > 1000000 && covidSize < 10000000) {
               // console.log("Between 10,000 and 100,000")
               const covidCountryValue = 25
-              const covidColor = "#f54b04"
+              const covidColor = "#181f4c"
               const countryName = covidData[i].Country_text
               formatCountryValues(covidCountryValue, countryName, covidColor)
             } else if (covidSize > 10000000) {
               // console.log("Between 100,000 and 100,000")
               const covidCountryValue = 50
-              const covidColor = "#f90000"
+              const covidColor = "#8e0000"
               const countryName = covidData[i].Country_text
               formatCountryValues(covidCountryValue, countryName, covidColor)
             }
