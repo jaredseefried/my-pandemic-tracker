@@ -3,12 +3,12 @@ import axios from 'axios'
 
 export default {
 
-  // getNews: function(){
-  //   return axios({
-  //     method: 'GET',
-  //     url: 'https://gnews.io/api/v4/search?q=covid&country=us&max=2&token=c3d94f5f1784ffbb6f5661d8efcf9202'
-  //   })
-  // },
+  getNews: function(){
+    return axios({
+      method: 'GET',
+      url: 'https://gnews.io/api/v4/search?q=covid&country=us&max=2&token=c3d94f5f1784ffbb6f5661d8efcf9202'
+    })
+  },
 
   getData: function () {
     return axios({
