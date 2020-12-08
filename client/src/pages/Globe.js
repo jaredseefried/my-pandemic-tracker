@@ -1,45 +1,50 @@
 import React, { useState, useEffect } from 'react'
 import ReactGlobe from 'react-globe';
-import Info from '../components/Info'
-import './globe.css'
 import "tippy.js/dist/tippy.css";
 import "tippy.js/animations/scale.css";
-import defaultMarkers from "./markers";
-import API from '../utils/API'
+import defaultMarkers from "../../src/markers";
+import Info from '../components/Info'
 import News from '../components/News'
-import "./news.css"
-import './continents.css'
-import {Button} from "react-bootstrap"
+import { Button } from "react-bootstrap"
+import API from '../utils/API'
 
 function markerTooltipRenderer(marker) {
-  return `CITY: ${marker.country}`;
+  return `Country: ${marker.country}`;
 }
+
 function Globe() {
   const markersData = []
+
   const options = {
     markerTooltipRenderer,
     ambientLightColor: 'red',
     globeGlowColor: 'blue',
     cameraDistanceRadiusScale: 4
   };
+
   const [markers, setMarkers] = useState([])
-  const [dataFinished, setDataFinished] = useState(false)
-  const [coordinates, setCoordinates] = useState({
-    coordinates: []
-  })
+
+  //! const [dataFinished, setDataFinished] = useState(false)
+
+  //! const [coordinates, setCoordinates] = useState({
+  //!   coordinates: []
+  //! })
+
   const [info, setInfo] = useState({
     country: "",
     infected: 0,
     deaths: 0,
     recoveries: 0
   })
-  
+
   const [animationSequence, setAnimationSequence] = useState()
   let animations = []
   useEffect(() => {
     loadData()
     getNews()
+    getMongoDB()
   }, [])
+
   function formatCountryValues(covidCountryValue, countryName, covidColor) {
     if (countryName) {
       for (var i = 0; i < defaultMarkers.length; i++) {
@@ -56,6 +61,7 @@ function Globe() {
       }
     }
   }
+
   function loadData() {
     API.getData()
       .then(function (response) {
@@ -103,20 +109,17 @@ function Globe() {
             recoveries: (covidData[0]["Total Recovered_text"])
           })
         }
-        // All data should be loaded here
-        console.log(markersData)
         setMarkers(markersData)
       }).catch(function (error) {
         console.error(error);
       });
   }
-  
+
   function onClickMarker(markerObj) {
     API.getData()
       .then(function (response) {
         const covidData = response.data
         for (var i = 0; i < covidData.length; i++) {
-          console.log(covidData[i])
           if (covidData[i].Country_text === markerObj.country) {
             setInfo({
               country: (covidData[i].Country_text),
@@ -130,20 +133,30 @@ function Globe() {
         console.error(error);
       });
   }
+
   const [getCovidNews, setGetCovidNews] = useState([])
   function getNews() {
     API.getNews()
       .then(response => {
         const newsData = response.data
-        console.log(newsData);
-        // for (var i = 0; i < newsData.length; i++) {
-        // }
         setGetCovidNews(newsData.articles)
       })
       .catch(error => {
         console.error(error);
       })
   }
+
+  function getMongoDB(){
+    API.getMarker()
+    .then((response)=>{
+      const data = response.data
+      console.log(data)
+    })
+    .catch((error)=>{
+      console.log(error);
+    })
+  }
+
   switch (animationSequence) {
     case 'northAmerica':
       animations = [
