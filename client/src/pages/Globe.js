@@ -19,7 +19,9 @@ function Globe() {
     markerTooltipRenderer,
     ambientLightColor: 'red',
     globeGlowColor: 'blue',
-    cameraDistanceRadiusScale: 4
+    cameraDistanceRadiusScale: 4,
+    // markerType: 'bar',
+    markerRadiusScaleRange: [0.01, 0.03],
   };
 
   const [markers, setMarkers] = useState([])
@@ -54,7 +56,7 @@ function Globe() {
             country: defaultMarkers[i].country,
             coordinates: defaultMarkers[i].coordinates,
             color: covidColor,
-            value: covidCountryValue
+            value: covidSize
           }
           markersData.push(updatedMarkerObj)
         }
@@ -70,34 +72,34 @@ function Globe() {
           if (covidData[i]["Total Cases_text"]) {
             const covidSize = parseFloat(covidData[i]["Total Cases_text"].replace(/,/g, ''));
             // console.log(covidData[i]["Total Cases_text"])
-            if (covidSize > 0 && covidSize < 100) {
+            if (covidSize > 0 && covidSize < 1000) {
               // console.log("Between 0 and 100")
-              const covidCountryValue = 20
-              const covidColor = "green"
+              const covidCountryValue = 10
+              const covidColor = "#f2ba07"
               const countryName = covidData[i].Country_text
               formatCountryValues(covidCountryValue, countryName, covidColor)
-            } else if (covidSize > 100 && covidSize < 1000) {
+            } else if (covidSize > 1000 && covidSize < 100000) {
               // console.log("Between 100 and 1,000")
-              const covidCountryValue = 40
-              const covidColor = "blue"
+              const covidCountryValue = 15
+              const covidColor = "#f5b203"
               const countryName = covidData[i].Country_text
               formatCountryValues(covidCountryValue, countryName, covidColor)
-            } else if (covidSize > 1000 && covidSize < 10000) {
+            } else if (covidSize > 100000 && covidSize < 1000000) {
               // console.log("Between 1,000 and 10,000")
-              const covidCountryValue = 60
-              const covidColor = "yellow"
+              const covidCountryValue = 20
+              const covidColor = "#f97e00"
               const countryName = covidData[i].Country_text
               formatCountryValues(covidCountryValue, countryName, covidColor)
-            } else if (covidSize > 10000 && covidSize < 100000) {
+            } else if (covidSize > 1000000 && covidSize < 10000000) {
               // console.log("Between 10,000 and 100,000")
-              const covidCountryValue = 80
-              const covidColor = "orange"
+              const covidCountryValue = 25
+              const covidColor = "#f54b04"
               const countryName = covidData[i].Country_text
               formatCountryValues(covidCountryValue, countryName, covidColor)
-            } else if (covidSize > 100000) {
+            } else if (covidSize > 10000000) {
               // console.log("Between 100,000 and 100,000")
-              const covidCountryValue = 100
-              const covidColor = "red"
+              const covidCountryValue = 50
+              const covidColor = "#f90000"
               const countryName = covidData[i].Country_text
               formatCountryValues(covidCountryValue, countryName, covidColor)
             }
@@ -120,6 +122,7 @@ function Globe() {
       .then(function (response) {
         const covidData = response.data
         for (var i = 0; i < covidData.length; i++) {
+
           if (covidData[i].Country_text === markerObj.country) {
             setInfo({
               country: (covidData[i].Country_text),
