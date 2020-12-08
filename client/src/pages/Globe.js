@@ -10,17 +10,31 @@ import News from '../components/News'
 import "./continents.css"
 import {Button} from "react-bootstrap"
 
-for (var i = 0; i < defaultMarkers.length; i++) {
-  defaultMarkers[i].color = '#' + (0x1000000 + (Math.random()) * 0xffffff).toString(16).substr(1, 6)
-  defaultMarkers[i].value = 50
-}
+// for (var i = 0; i < defaultMarkers.length; i++) {
+//   defaultMarkers[i].color = '#' + (0x1000000 + (Math.random()) * 0xffffff).toString(16).substr(1, 6)
+//   defaultMarkers[i].value = 50
+// }
+
+
 
 function markerTooltipRenderer(marker) {
   return `CITY: ${marker.country}`;
 }
 
 function Globe() {
-  const [markers, setMarkers] = useState(defaultMarkers);
+
+  const markersData = []
+
+  const options = {
+    markerTooltipRenderer,
+    ambientLightColor: 'red',
+    globeGlowColor: 'blue',
+    cameraDistanceRadiusScale: 4
+  };
+
+  const [markers, setMarkers] = useState([])
+  
+  const [ dataFinished, setDataFinished ] = useState(false)
 
   const [coordinates, setCoordinates] = useState({
     coordinates: []
@@ -33,8 +47,18 @@ function Globe() {
     recoveries: 0
   })
 
+
+  const [getCovidNews, setGetCovidNews] = useState({
+    image: "",
+    title: "",
+    description: "",
+    published: "",
+    url: ""
+  })
+
   const [animationSequence, setAnimationSequence] = useState()
   let animations = []
+
 
   useEffect(() => {
     loadData()
@@ -42,31 +66,89 @@ function Globe() {
   }, [])
 
 
+  function formatCountryValues(covidCountryValue, countryName, covidColor){
+    if(countryName){
+      for(var i=0; i<defaultMarkers.length; i++){
+        if(defaultMarkers[i].country === countryName){
+          const updatedMarkerObj = {
+              id: defaultMarkers[i].id,
+              country: defaultMarkers[i].country,
+              coordinates: defaultMarkers[i].coordinates,
+              color: covidColor,
+              value: covidCountryValue
+            }
+            markersData.push(updatedMarkerObj)
+        } 
+      }
+    } 
+  }
+
   function loadData() {
     API.getData()
       .then(function (response) {
         const covidData = response.data
-        for (var i = 0; i < covidData.length; i++) {
-          console.log(covidData[i])
+        
+        for (var i = 0; i < covidData.length; i++) {          
+          if (covidData[i]["Total Cases_text"]){
+            const covidSize = parseFloat(covidData[i]["Total Cases_text"].replace(/,/g, ''));
+            // console.log(covidData[i]["Total Cases_text"])
+            
+            if(covidSize > 0 && covidSize < 100){
+              // console.log("Between 0 and 100")
+              const covidCountryValue = 20
+              const covidColor = "green"
+              const countryName = covidData[i].Country_text
+              formatCountryValues(covidCountryValue, countryName,covidColor)
+
+            } else if (covidSize > 100 && covidSize < 1000) {
+              // console.log("Between 100 and 1,000")
+              const covidCountryValue = 40
+              const covidColor = "blue"
+              const countryName = covidData[i].Country_text
+              formatCountryValues(covidCountryValue, countryName, covidColor)
+
+            } else if (covidSize > 1000 && covidSize < 10000){
+              // console.log("Between 1,000 and 10,000")
+              const covidCountryValue = 60
+              const covidColor = "yellow"
+              const countryName = covidData[i].Country_text
+              formatCountryValues(covidCountryValue, countryName, covidColor)
+
+            } else if (covidSize > 10000 && covidSize < 100000){
+              // console.log("Between 10,000 and 100,000")
+              const covidCountryValue = 80
+              const covidColor = "orange"
+              const countryName = covidData[i].Country_text
+              formatCountryValues(covidCountryValue, countryName, covidColor)
+
+            } else if (covidSize > 100000){
+              // console.log("Between 100,000 and 100,000")
+              const covidCountryValue = 100
+              const covidColor = "red"
+              const countryName = covidData[i].Country_text
+              formatCountryValues(covidCountryValue, countryName, covidColor)
+            }
+          } 
+        
+          // setInfo({
+          //   country: (covidData[0].Country_text),
+          //   infected: (covidData[0]["Total Cases_text"]),
+          //   deaths: (covidData[0]["Total Deaths_text"]),
+          //   recoveries: (covidData[0]["Total Recovered_text"])
+          // })
+
         }
-        setInfo({
-          country: (covidData[0].Country_text),
-          infected: (covidData[0]["Total Cases_text"]),
-          deaths: (covidData[0]["Total Deaths_text"]),
-          recoveries: (covidData[0]["Total Recovered_text"])
-        })
+        
+        // All data should be loaded here
+        console.log(markersData)
+        setMarkers(markersData)
+      
       }).catch(function (error) {
         console.error(error);
       });
-
   }
 
-  const options = {
-    markerTooltipRenderer,
-    ambientLightColor: 'red',
-    globeGlowColor: 'blue',
-    cameraDistanceRadiusScale: 3
-  };
+
 
   function onClickMarker(markerObj) {
     API.getData()
@@ -74,6 +156,7 @@ function Globe() {
         const covidData = response.data
         for (var i = 0; i < covidData.length; i++) {
           console.log(covidData[i])
+
           if (covidData[i].Country_text === markerObj.country) {
             setInfo({
               country: (covidData[i].Country_text),
@@ -89,7 +172,6 @@ function Globe() {
       });
   }
 
-  const [getCovidNews, setGetCovidNews] = useState([])
 
   function getNews() {
     API.getNews()
@@ -193,7 +275,23 @@ function Globe() {
 
 
   return (
-    <div>
+
+    <>
+    { markers.length > 0 && (
+      <div className="globe">
+        <Continents
+          coordinates={coordinates}
+        />
+
+        <News
+          image={getCovidNews.image}
+          title={getCovidNews.title}
+          description={getCovidNews.description}
+          published={getCovidNews.publishedAt}
+          url={getCovidNews.url}
+        />
+
+    
       <div className="continents-container">
         <h2 className="continent" onClick={() => setAnimationSequence('northAmerica')}>North America</h2>
         <h2 className="continent" onClick={() => setAnimationSequence('southAmerica')}>South America</h2>
@@ -206,16 +304,8 @@ function Globe() {
         
        
       </div>
-      <div className="globe">
-        
-        <div className="news-container">
-          {getCovidNews.map(article => (
-            <News
-              {...article}
-              key={article.title} />
-          ))}
+      
 
-        </div>
 
 
         <ReactGlobe
@@ -223,6 +313,7 @@ function Globe() {
           options={options}
           onClickMarker={onClickMarker}
           animations={animations}
+
         />
         <Info
           country={info.country}
@@ -231,7 +322,10 @@ function Globe() {
           recoveries={info.recoveries}
         />
       </div>
-    </div>
+
+    )}
+    </>
+
   );
 }
 export default Globe
