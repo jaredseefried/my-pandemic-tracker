@@ -121,6 +121,9 @@ function Globe() {
     API.getData()
       .then(function (response) {
         const covidData = response.data
+
+        setAnimationSequence('onclickMarker')
+
         for (var i = 0; i < covidData.length; i++) {
 
           if (covidData[i].Country_text === markerObj.country) {
@@ -168,7 +171,7 @@ function Globe() {
           focusAnimationDuration: 3000,
           focusDistanceRadiusScale: 3,
           focusEasingFunction: ['Linear', 'None'],
-        },
+        }
       ]
       break;
     case 'southAmerica':
@@ -178,7 +181,7 @@ function Globe() {
           focusAnimationDuration: 3000,
           focusDistanceRadiusScale: 3,
           focusEasingFunction: ['Linear', 'None'],
-        },
+        }
       ]
       break;
     case 'europe':
@@ -188,7 +191,7 @@ function Globe() {
           focusAnimationDuration: 3000,
           focusDistanceRadiusScale: 3,
           focusEasingFunction: ['Linear', 'None'],
-        },
+        }
       ]
       break;
     case 'africa':
@@ -198,7 +201,7 @@ function Globe() {
           focusAnimationDuration: 3000,
           focusDistanceRadiusScale: 3,
           focusEasingFunction: ['Linear', 'None'],
-        },
+        }
       ]
       break;
     case 'asia':
@@ -208,7 +211,7 @@ function Globe() {
           focusAnimationDuration: 3000,
           focusDistanceRadiusScale: 3,
           focusEasingFunction: ['Linear', 'None'],
-        },
+        }
       ]
       break;
     case 'australia':
@@ -218,7 +221,7 @@ function Globe() {
           focusAnimationDuration: 3000,
           focusDistanceRadiusScale: 3,
           focusEasingFunction: ['Linear', 'None'],
-        },
+        }
       ]
       break;
     case 'antartica':
@@ -228,10 +231,10 @@ function Globe() {
           focusAnimationDuration: 3000,
           focusDistanceRadiusScale: 3,
           focusEasingFunction: ['Linear', 'None'],
-        },
+        }
       ]
       break;
-    case 'explore':
+    case 'onclickMarker':
       animations = []
       break;
     default:
@@ -249,7 +252,6 @@ function Globe() {
             <h2 className="continent" onClick={() => setAnimationSequence('asia')}>Asia</h2>
             <h2 className="continent" onClick={() => setAnimationSequence('australia')}>Australia</h2>
             <h2 className="continent" onClick={() => setAnimationSequence('antartica')}>Antarctica</h2>
-            <Button className="continent" onClick={() => setAnimationSequence('explore')}>Explore!</Button>
           </div>
           <div className="news-container">
             {getCovidNews.map(article => (
