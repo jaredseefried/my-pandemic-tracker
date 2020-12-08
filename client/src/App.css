@@ -130,3 +130,17 @@ body{
   margin: 27px;
   color: whitesmoke;
 }
+
+.continent:hover {
+  color: #00bcd4;
+  cursor: pointer;
+}
+
+button.continent {
+  background: #00BCD4;
+}
+
+button.continent:hover{
+  background-color: #fff;;
+  color:black;
+}
