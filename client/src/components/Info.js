@@ -1,7 +1,5 @@
-import React, {useState, useEffect} from 'react'
-// import axios from 'axios'
-import './info.css'
-// import API from "../utils/covidAPI"
+import React from 'react'
+import '../pages/info.css'
 
 function Info(props) {
   return (
