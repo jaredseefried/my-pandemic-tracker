@@ -76,6 +76,11 @@ body {
   font-size: 10px;
 }
 
+img.card-img-top {
+  height: 100px;
+  object-fit: cover;
+}
+
 #news-link {
   width: 88px;
   font-size: 8px;
@@ -144,6 +149,72 @@ button.continent:hover {
   ;
   color: black;
 }
+
+/* Splash Text */
+.splash-container{
+  position: absolute;
+  top: 40%;
+}
+
+.textEdit {
+  color: #cd0e00;
+  z-index: 3;
+  font-family: usual, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-shadow: 1px 1px 1px #fff;
+}
+
+.textEdit1 {
+  color: #ffc107;
+  z-index: 3;
+}
+
+.textEdit2 {
+  color: #80bdf2;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  opacity: 0.4;
+  z-index: 2;
+}
+
+.textEdit3 {
+  color: #80bdf2;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  opacity: 0.4;
+  z-index: 2;
+}
+
+.textEdit4{
+    background-color:#ff5722;
+}
+
+a.textEdit4 {
+  margin: 10px auto 0px auto;
+  border: none;
+}
+
+a.textEdit4:hover, a.textEdit4:focus {
+  background-color:#00bcd4;
+}
+
+
+.fade-in {
+	animation: fadeIn 3s;
+  	opacity: .4;
+}
+
+@keyframes fadeIn {
+  from {
+  	opacity: 0;
+  }
+  to {
+ 	opacity: .4;
+  }
+}
+
+
 
 @media only screen and (max-width: 850px) {
   .continents-container {
