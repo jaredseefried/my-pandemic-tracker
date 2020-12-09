@@ -1,5 +1,5 @@
 import React from "react";
-import "./splashtext.css";
+import "../../src/App.css";
 import { Button } from "react-bootstrap";
 
 function splashText() {
