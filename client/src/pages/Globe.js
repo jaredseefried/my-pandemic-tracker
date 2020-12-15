@@ -2,11 +2,15 @@ import React, { useState, useEffect } from 'react'
 import ReactGlobe from 'react-globe';
 import "tippy.js/dist/tippy.css";
 import "tippy.js/animations/scale.css";
-import defaultMarkers from "../../src/markers";
+
+// IMPORT DATA
+import defaultMarkers from "../JSON/markers.js";
+import continents from "../JSON/continents"
 import Info from '../components/Info'
-import News from '../components/News'
-import { Button } from "react-bootstrap"
+// import News from '../components/News'
+
 import API from '../utils/API'
+import { RGBADepthPacking } from 'three';
 
 function markerTooltipRenderer(marker) {
   return `Country: ${marker.country}`;
@@ -17,20 +21,17 @@ function Globe() {
 
   const options = {
     markerTooltipRenderer,
-    ambientLightColor: 'red',
+    enableMarkerGlow: false,
+    ambientLightColor: "red",
     globeGlowColor: 'blue',
-    cameraDistanceRadiusScale: 4,
-    // markerType: 'bar',
-    markerRadiusScaleRange: [0.01, 0.03],
+    cameraDistanceRadiusScale: 5,
+    markerRadiusScaleRange: [0.1, 1.5],
+
+    markerType: 'bar',
+
   };
 
   const [markers, setMarkers] = useState([])
-
-  // const [dataFinished, setDataFinished] = useState(false)
-
-  // const [coordinates, setCoordinates] = useState({
-  //   coordinates: []
-  // })
 
   const [info, setInfo] = useState({
     country: "",
@@ -41,13 +42,15 @@ function Globe() {
 
   const [animationSequence, setAnimationSequence] = useState()
   let animations = []
+
+  // USE EFFECT
   useEffect(() => {
     loadData()
-    getNews()
+    // getNews()
     getMongoDB()
   }, [])
 
-  function formatCountryValues(covidCountryValue, countryName, covidColor) {
+  function formatCountryValues(covidSize, countryName, covidColor) {
     if (countryName) {
       for (var i = 0; i < defaultMarkers.length; i++) {
         if (defaultMarkers[i].country === countryName) {
@@ -56,7 +59,7 @@ function Globe() {
             country: defaultMarkers[i].country,
             coordinates: defaultMarkers[i].coordinates,
             color: covidColor,
-            value: covidCountryValue
+            value: covidSize
           }
           markersData.push(updatedMarkerObj)
         }
@@ -74,34 +77,34 @@ function Globe() {
             // console.log(covidData[i]["Total Cases_text"])
             if (covidSize > 0 && covidSize < 1000) {
               // console.log("Between 0 and 100")
-              const covidCountryValue = 10
-              const covidColor = "#ffffff"
+              // const covidCountryValue = 10
+              const covidColor = "#00E8FF"
               const countryName = covidData[i].Country_text
-              formatCountryValues(covidCountryValue, countryName, covidColor)
+              formatCountryValues(covidSize, countryName, covidColor)
             } else if (covidSize > 1000 && covidSize < 100000) {
               // console.log("Between 100 and 1,000")
-              const covidCountryValue = 15
-              const covidColor = "#60bcc4"
+              // const covidCountryValue = 15
+              const covidColor = "#0087FF"
               const countryName = covidData[i].Country_text
-              formatCountryValues(covidCountryValue, countryName, covidColor)
+              formatCountryValues(covidSize, countryName, covidColor)
             } else if (covidSize > 100000 && covidSize < 1000000) {
               // console.log("Between 1,000 and 10,000")
-              const covidCountryValue = 20
-              const covidColor = "#005666"
+              // const covidCountryValue = 20
+              const covidColor = "#FFD800"
               const countryName = covidData[i].Country_text
-              formatCountryValues(covidCountryValue, countryName, covidColor)
+              formatCountryValues(covidSize, countryName, covidColor)
             } else if (covidSize > 1000000 && covidSize < 10000000) {
               // console.log("Between 10,000 and 100,000")
               const covidCountryValue = 25
-              const covidColor = "#181f4c"
+              const covidColor = "#FF8033"
               const countryName = covidData[i].Country_text
-              formatCountryValues(covidCountryValue, countryName, covidColor)
+              formatCountryValues(covidSize, countryName, covidColor)
             } else if (covidSize > 10000000) {
               // console.log("Between 100,000 and 100,000")
-              const covidCountryValue = 50
-              const covidColor = "#8e0000"
+              // const covidCountryValue = 50
+              const covidColor = "#FF0000"
               const countryName = covidData[i].Country_text
-              formatCountryValues(covidCountryValue, countryName, covidColor)
+              formatCountryValues(covidSize, countryName, covidColor)
             }
           }
           setInfo({
@@ -140,17 +143,17 @@ function Globe() {
       });
   }
 
-  const [getCovidNews, setGetCovidNews] = useState([])
-  function getNews() {
-    API.getNews()
-      .then(response => {
-        const newsData = response.data
-        setGetCovidNews(newsData.articles)
-      })
-      .catch(error => {
-        console.error(error);
-      })
-  }
+  // const [getCovidNews, setGetCovidNews] = useState([])
+  // function getNews() {
+  //   API.getNews()
+  //     .then(response => {
+  //       const newsData = response.data
+  //       setGetCovidNews(newsData.articles)
+  //     })
+  //     .catch(error => {
+  //       console.error(error);
+  //     })
+  // }
 
   function getMongoDB(){
     API.getMarker()
@@ -163,76 +166,28 @@ function Globe() {
     })
   }
 
+  // CONTINENTS
   switch (animationSequence) {
     case 'northAmerica':
-      animations = [
-        {
-          coordinates: [38, -97],
-          focusAnimationDuration: 3000,
-          focusDistanceRadiusScale: 3,
-          focusEasingFunction: ['Linear', 'None'],
-        }
-      ]
+      animations = [continents[0]]
       break;
     case 'southAmerica':
-      animations = [
-        {
-          coordinates: [-24, -47],
-          focusAnimationDuration: 3000,
-          focusDistanceRadiusScale: 3,
-          focusEasingFunction: ['Linear', 'None'],
-        }
-      ]
+      animations = [continents[1]]
       break;
     case 'europe':
-      animations = [
-        {
-          coordinates: [54, -2],
-          focusAnimationDuration: 3000,
-          focusDistanceRadiusScale: 3,
-          focusEasingFunction: ['Linear', 'None'],
-        }
-      ]
+      animations = [continents[2]]
       break;
     case 'africa':
-      animations = [
-        {
-          coordinates: [-1, 15],
-          focusAnimationDuration: 3000,
-          focusDistanceRadiusScale: 3,
-          focusEasingFunction: ['Linear', 'None'],
-        }
-      ]
+      animations = [continents[3]]
       break;
     case 'asia':
-      animations = [
-        {
-          coordinates: [35, 105],
-          focusAnimationDuration: 3000,
-          focusDistanceRadiusScale: 3,
-          focusEasingFunction: ['Linear', 'None'],
-        }
-      ]
+      animations = [continents[4]]
       break;
     case 'australia':
-      animations = [
-        {
-          coordinates: [-27, 133],
-          focusAnimationDuration: 3000,
-          focusDistanceRadiusScale: 3,
-          focusEasingFunction: ['Linear', 'None'],
-        }
-      ]
+      animations = [continents[5]]
       break;
     case 'antartica':
-      animations = [
-        {
-          coordinates: [-70, 0],
-          focusAnimationDuration: 3000,
-          focusDistanceRadiusScale: 3,
-          focusEasingFunction: ['Linear', 'None'],
-        }
-      ]
+      animations = [continents[6]]
       break;
     case 'onclickMarker':
       animations = []
@@ -240,11 +195,17 @@ function Globe() {
     default:
       console.log("hello")
   }
+
+  //  RETURN STARTS HERE
   return (
     <>
       { markers.length > 0 && (
         <div className="globe">
+          <div className="pandemicHeader">
+              PANDEMIC TRACKER
+            </div>
           <div className="continents-container">
+            
             <h2 className="continent" onClick={() => setAnimationSequence('northAmerica')}>North America</h2>
             <h2 className="continent" onClick={() => setAnimationSequence('southAmerica')}>South America</h2>
             <h2 className="continent" onClick={() => setAnimationSequence('europe')}>Europe</h2>
@@ -253,13 +214,14 @@ function Globe() {
             <h2 className="continent" onClick={() => setAnimationSequence('australia')}>Australia</h2>
             <h2 className="continent" onClick={() => setAnimationSequence('antartica')}>Antarctica</h2>
           </div>
-          <div className="news-container">
+
+          {/* <div className="news-container">
             {getCovidNews.map(article => (
               <News
                 {...article}
                 key={article.title} />
             ))}
-          </div>
+          </div> */}
           <ReactGlobe
             markers={markers}
             options={options}

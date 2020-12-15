@@ -7,10 +7,13 @@ import Splash from "./pages/splash"
 function App() {
   return (
     <Router>
+      
       <div className="App">
+        
         <Route exact path ="/" component={Splash}/>
         <Route exact path ="/globe" component={Globe}/>
       </div>
+      
     </Router>
   );
 }
